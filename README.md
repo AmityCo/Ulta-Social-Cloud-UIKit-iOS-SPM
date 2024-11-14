@@ -22,8 +22,8 @@ Once setup below has done, go to official [Amity](https://docs.amity.co/uikit/io
 
 ### Swift Package Manager
 
-- Install packages from `git@github.com:AmityCo/Ulta-Social-Cloud-UIKit-iOS-SPM.git` with a specific version tag for example v2.0.0-beta01 and integrate into app target.
-- It will install AmitySDK, Realm, RealmSwift and AmityUIKit4 packages.
+- Install packages from `git@github.com:AmityCo/Ulta-Social-Cloud-UIKit-iOS-SPM.git` with a specific version tag for example 2.0.0-beta01 and integrate into app target.
+- It will install AmitySDK, Realm, RealmSwift, AmityUIKit and AmityUIKit4 packages.
 
 ## Communication
 
