@@ -41,6 +41,9 @@ AmityUIKit4Manager.behaviour.loginBehavior = loginBehavior
 let topNavagationBehavior = CustomTopNavigationBehavior()
 AmityUIKit4Manager.behaviour.topNavigationBehavior = topNavagationBehavior
 
+let customHyperlinkBehavior = CustomHyperlinkBehavior()
+AmityUIKit4Manager.behaviour.hyperlinkBehavior = customHyperlinkBehavior
+
 class CustomLoginBehavior: AmityLoginBehavior {
     
     override func goToLoginView(controller: ViewController?) {
@@ -77,6 +80,19 @@ class CustomTopNavigationBehavior: AmityTopNavigationBehavior {
     }
     
 
+}
+
+class CustomHyperlinkBehavior: AmityHyperLinkBehavior {
+    // Override when user tap on link
+    // The default action is open link on external
+    override func handleLinkNavigation(controller: ViewController?, url: URL) {
+        
+        let navigationController = controller?.navigationController
+        let linkView = HyperlinkView(text: url.absoluteString)
+        
+        let vc = AmitySwiftUIHostingController(rootView: AnyView(linkView))
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 ```
 
