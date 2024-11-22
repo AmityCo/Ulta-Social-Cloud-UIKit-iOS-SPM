@@ -96,11 +96,183 @@ class CustomHyperlinkBehavior: AmityHyperLinkBehavior {
 }
 ```
 
-## Navigate to SocialHomePage
+## Navigate to Amity UIKit
 ``` swift
-let pageView = AmitySocialHomePage(backAction: { [weak self] in
-    self?.navigationController?.popViewController()
-})
-let hostingController = AmitySwiftUIHostingController(rootView: pageView)
-navigationController?.pushViewController(hostingController, animated: true)
+func navigateToSocialHomePage() {
+    let pageView = AmitySocialHomePage(backAction: { [weak self] in
+        self?.navigationController?.popViewController()
+    })
+    let hostingController = AmitySwiftUIHostingController(rootView: pageView)
+    navigationController?.pushViewController(hostingController, animated: true)
+}
+
+func navigateToPostDetailPage() {
+    let page = AmityPostDetailPage(id: "post-id")
+    let hostingController = AmitySwiftUIHostingController(rootView: page)
+    navigationController?.pushViewController(hostingController, animated: true)
+}
+
+func navigateToCommunityProfilePage() {
+    let page = AmityCommunityProfilePage(communityId: "community-id")
+    let hostingController = AmitySwiftUIHostingController(rootView: page)
+    navigationController?.pushViewController(hostingController, animated: true)
+}
+
+func navigateToSocialHomePage() {
+    let page = AmityUserProfilePage(userId: "user-id")
+    let hostingController = AmitySwiftUIHostingController(rootView: page)
+    navigationController?.pushViewController(hostingController, animated: true)
+}
+```
+
+
+## Sample usage with TabBarController
+``` swift
+import UIKit
+import AmityUIKit4
+
+class UltaTabViewController: UITabBarController, UITabBarControllerDelegate {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupViewControllers()
+        
+        setupTabBar()
+        
+        self.delegate = self
+        self.selectedIndex = 0
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.tabBar.layer.shadowPath = UIBezierPath(rect: self.tabBar.bounds).cgPath
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+
+    @objc func setupTabBar() {
+        
+        self.tabBar.isTranslucent = false
+        
+        self.tabBar.backgroundImage = UIImage()
+        self.tabBar.shadowImage = UIImage()
+        
+        self.tabBar.tintColor = .black
+        self.tabBar.barTintColor = .white
+        self.tabBar.backgroundColor = .white
+        
+        let appearance = tabBar.standardAppearance
+        appearance.shadowImage = nil
+        appearance.shadowColor = nil
+        appearance.backgroundEffect = nil
+        tabBar.standardAppearance = appearance
+        
+        dropShadow()
+    }
+    
+    private func setupViewControllers() {
+        let symbolConfiguration = UIImage.SymbolConfiguration(font: .systemFont(ofSize: 18, weight: .medium), scale: .unspecified)
+        
+        // First Tab
+        let firstvc = UINavigationController(rootViewController: FirstViewController())
+        let homeImage = UIImage(systemName: "pentagon")?.imageWithoutBaseline().applyingSymbolConfiguration(symbolConfiguration)?.withRenderingMode(.alwaysTemplate)
+        firstvc.tabBarItem = UITabBarItem(title: "", image: homeImage, tag: 0)
+        
+        // Second Tab. From here we navigate to social home page.
+        let secondVc = UINavigationController(rootViewController: SecondViewController())
+        let routineImage = UIImage(systemName: "square.grid.2x2", withConfiguration: symbolConfiguration)?.imageWithoutBaseline().withRenderingMode(.alwaysTemplate)
+        secondVc.tabBarItem = UITabBarItem(title: "", image: routineImage, tag: 1)
+        
+        self.viewControllers = [firstvc, secondVc]
+    }
+    
+    private func dropShadow() {
+        self.tabBar.layer.masksToBounds = false
+        self.tabBar.layer.shadowColor = UIColor.black.withAlphaComponent(0.5).cgColor
+        self.tabBar.layer.shadowOpacity = 0.2
+        self.tabBar.layer.shadowOffset = CGSize(width: 0, height: -1)
+        self.tabBar.layer.shadowRadius = 5
+        
+        self.tabBar.layer.rasterizationScale = UIScreen.main.scale
+    }
+}
+
+class FirstViewController: UIViewController {
+    
+    let label = UILabel()
+    
+    override func loadView() {
+        self.view = UIView()
+        view.backgroundColor = .white
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.addSubview(label)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        label.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        label.text = "Awesome First Tab"
+        label.textColor = .black
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Dismiss", style: .plain, target: self, action: #selector(onDismissButtonTap))
+        
+        self.title = "First Tab"
+    }
+    
+    @objc func onDismissButtonTap() {
+        self.dismiss(animated: true)
+    }
+}
+
+class SecondViewController: UIViewController {
+    
+    let button = UIButton(type: .system)
+    
+    override func loadView() {
+        self.view = UIView()
+        view.backgroundColor = .white
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.addSubview(button)
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        button.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        button.setTitle("Open Ulta Social UIKit", for: .normal)
+        button.setTitleColor(.blue, for: .normal)
+        button.addTarget(self, action: #selector(onButtonTap), for: .touchUpInside)
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Dismiss", style: .plain, target: self, action: #selector(onDismissButtonTap))
+        
+        self.title = "Second Tab"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // SocialUIKit manages its own navigation bar. It is automatically hidden in SocialHomePage. So we enable default navigation bar
+        // when this viewcontroller appears again.
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    @objc func onButtonTap() {
+        // Push social home page
+        let socialHomePage = AmitySwiftUIHostingController(rootView: AmitySocialHomePage(backAction: {
+            self.navigationController?.popViewController()
+        }))
+        self.navigationController?.pushViewController(socialHomePage)
+    }
+    
+    @objc func onDismissButtonTap() {
+        self.dismiss(animated: true)
+    }
+}
 ```
