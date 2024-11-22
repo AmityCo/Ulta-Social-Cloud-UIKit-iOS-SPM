@@ -13,28 +13,28 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "AmityUIKit",
-            url: "https://sdk.amity.co/sdk-release/ios-uikit-frameworks/2.0.0-beta01/AmityUIKit.xcframework.zip",
-            checksum: "bcb39132b15623599edcb54f2af0b5414651c4d21109dfa58488aa85be0de236"
+            url: "https://sdk.amity.co/sdk-release/ios-uikit-frameworks/2.0.0-beta02/AmityUIKit.xcframework.zip",
+            checksum: "0b7df55842cae0bc729235dce50413987835ad554561c58512b0e75cbffc0e5b"
         ),
         .binaryTarget(
             name: "AmitySDK",
-            url: "https://sdk.amity.co/sdk-release/ios-uikit-frameworks/2.0.0-beta01/AmitySDK.xcframework.zip",
-            checksum: "5f63fe82a93578a96ccc9dd6fee73fd48d5938991dd468347c404cadeeb4106b"
+            url: "https://sdk.amity.co/sdk-release/ios-uikit-frameworks/2.0.0-beta02/AmitySDK.xcframework.zip",
+            checksum: "16ad73b0f54fb74b0c07866d89eba0ebcedbb1edba53d4279d4d591866972bc2"
         ),
         .binaryTarget(
             name: "Realm",
-            url: "https://sdk.amity.co/sdk-release/ios-uikit-frameworks/2.0.0-beta01/Realm.xcframework.zip",
-            checksum: "eed8a9fac3789e16af4670de7ef3baa9bc193f5a3191a376eb88f177b188ee25"
+            url: "https://sdk.amity.co/sdk-release/ios-uikit-frameworks/2.0.0-beta02/Realm.xcframework.zip",
+            checksum: "17d6119fd4c6de170d92cb8f62533506726b20d7dd183d7c547e411096b5854c"
         ),
         .binaryTarget(
             name: "RealmSwift",
-            url: "https://sdk.amity.co/sdk-release/ios-uikit-frameworks/2.0.0-beta01/RealmSwift.xcframework.zip",
-            checksum: "74d5a7e001d2fa863327789a84827b8943901740567d1777b16f517b058416ae"
+            url: "https://sdk.amity.co/sdk-release/ios-uikit-frameworks/2.0.0-beta02/RealmSwift.xcframework.zip",
+            checksum: "a70e50089b8c1aa56d1a52066a91a60b65ccd67f7a890a8b85e88ad8c1b519a3"
         ),
         .binaryTarget(
             name: "AmityUIKit4",
-            url: "https://sdk.amity.co/sdk-release/ios-uikit-frameworks/2.0.0-beta01/AmityUIKit4.xcframework.zip",
-            checksum: "1e83af49ce26e6a66e1073ae6ad93ee0dccf435a1c975a325e090e837e460318"
+            url: "https://sdk.amity.co/sdk-release/ios-uikit-frameworks/2.0.0-beta02/AmityUIKit4.xcframework.zip",
+            checksum: "9981820f56241cede5d30c60456fa5860b6b0ac3237210a4734d5ff7f5a30354"
         )
     ]
 )
