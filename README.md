@@ -118,7 +118,7 @@ func navigateToCommunityProfilePage() {
     navigationController?.pushViewController(hostingController, animated: true)
 }
 
-func navigateToSocialHomePage() {
+func navigateToUserProfilePage() {
     let page = AmityUserProfilePage(userId: "user-id")
     let hostingController = AmitySwiftUIHostingController(rootView: page)
     navigationController?.pushViewController(hostingController, animated: true)
